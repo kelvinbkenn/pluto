@@ -15,4 +15,6 @@ public:
     std::vector<Body> bodies;
 
     void update(double dt);
+    void update(float dt);
+    void add_body(Body body);
 };
