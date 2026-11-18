@@ -49,7 +49,7 @@ public:
     Vec2D operator-() const { return Vec2D(-x, -y); }
 
     friend std::ostream& operator<< (std::ostream& os, const Vec2D& v) {
-        return os << "(" << v.x << v.y << ")";
+        return os << "(" << v.x << ", " << v.y << ")";
     }
 
     operator sf::Vector2<float>() const {

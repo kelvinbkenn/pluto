@@ -4,16 +4,18 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
+#include <SFML/Window/WindowEnums.hpp>
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "SFML 3 Window");
-    window.setFramerateLimit(60);
+    sf::RenderWindow window(sf::VideoMode({800, 800}), "PLUTO Physics Engine", sf::Style::None);
 
     sf::Clock clock;
 
     World world;
     world.add_body({});
-    world.bodies[0].velocity = Vec2D(50, 50);
+
+    world.bodies[0].position = Vec2D(5, 5);
+    world.bodies[0].velocity = Vec2D(500, 500);
 
     sf::CircleShape body(5);
 
@@ -27,11 +29,13 @@ int main() {
         float dt = clock.restart().asSeconds();
         world.update(dt);
 
-        body.setPosition({static_cast<float>(world.bodies[0].position.x), static_cast<float>(500-world.bodies[0].position.y)});
+        body.setPosition({static_cast<float>(world.bodies[0].position.x), static_cast<float>(795-world.bodies[0].position.y)});
 
         window.clear(sf::Color::Black);
         window.draw(body);
         window.display();
+
+        std::cout << world.bodies[0].position << "\n";
     }
 
     return 0;

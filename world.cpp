@@ -1,21 +1,26 @@
 #include "world.hpp"
 
-void World::update(double dt) {
-    for (Body& body : bodies) {
-        Vec2D acc(0, -9.81);
-
-        body.velocity += acc * dt;
-        body.position += body.velocity * dt;
-    }
-}
-
 void World::update(float dt) {
     for (Body& body : bodies) {
-        Vec2D acc(0, -25);
+        Vec2D acc(0, -250);
 
         body.velocity += acc * dt;
         body.position += body.velocity * dt;
+
+        if (body.position.y < 5 && body.velocity.y < 0)
+            body.velocity.y *= -0.5;
+
+        if (body.position.x > 795 && body.velocity.x > 0)
+            body.velocity.x *= -0.5;
+
+        if (body.position.x < 5 && body.velocity.x < 0)
+            body.velocity.x *= -0.5;
+
+        if (body.position.y > 795 && body.velocity.y > 0)
+            body.velocity.y *= -0.5;
+
     }
 }
+
 
 void World::add_body(Body body) { bodies.push_back(body); }
