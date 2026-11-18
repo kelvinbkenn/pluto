@@ -2,12 +2,29 @@
 
 #include "vec2d.hpp"
 
+#include <cstdint>
 #include <vector>
-//#include <chrono>
 
-//std::chrono::nanoseconds;
-//std::chrono::microseconds;
-//std::chrono::milliseconds;
+enum TIME_UNIT {
+    NANO,
+    MICRO,
+    MILLI,
+    SECONDS,
+};
+
+template<TIME_UNIT unit>
+struct TIME {
+    const uint64_t duration;
+
+    constexpr double seconds() const {
+        switch (unit) {
+            case NANO: return duration / 1e9;
+            case MICRO: return duration / 1e6;
+            case MILLI: return duration / 1e3;
+            case SECONDS: return duration;
+        }
+    }
+};
 
 struct Body {
 public:
@@ -29,6 +46,10 @@ public:
 
     World(Vec2D acc): global_acceleration(acc) {}
 
-    void update(float dt);
     void add_body(Body body);
+
+    void update(TIME<TIME_UNIT::NANO> time);
+    void update(TIME<TIME_UNIT::MICRO> time);
+    void update(TIME<TIME_UNIT::MILLI> time);
+    void update(TIME<TIME_UNIT::SECONDS> time);
 };
