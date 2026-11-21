@@ -7,18 +7,25 @@ void World::update(float dt) {
         body.velocity += acc * dt;
         body.position += body.velocity * dt;
 
-        if (body.position.y < 5 && body.velocity.y < 0)
+        if (body.position.y < 5 && body.velocity.y < 0) {
             body.velocity.y *= -0.5;
+            body.velocity.x *= 0.99999;
+        }
 
-        if (body.position.x > 795 && body.velocity.x > 0)
+        if (body.position.x > 795 && body.velocity.x > 0){
             body.velocity.x *= -0.5;
+            body.velocity.y *= 0.99999;
+        }
 
-        if (body.position.x < 5 && body.velocity.x < 0)
+        if (body.position.x < 5 && body.velocity.x < 0) {
             body.velocity.x *= -0.5;
+            body.velocity.y *= 0.99999;
+        }
 
-        if (body.position.y > 795 && body.velocity.y > 0)
+        if (body.position.y > 795 && body.velocity.y > 0) {
             body.velocity.y *= -0.5;
-
+            body.velocity.x *= 0.99999;
+        }
     }
 }
 
